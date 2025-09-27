@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('page-title') - DesaInovatif</title>
-    <link rel="stylesheet" href="/css/landing.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/font.css') }}">
 </head>
 <body>
     <!-- Header -->
@@ -22,6 +22,6 @@
     @yield('landing_content')
 
     @include('landing.partial.footer')
-    <script src="js/landing.js"></script>
+    <script src="{{ asset('js/landing.js') }}"></script>
 </body>
 </html>
