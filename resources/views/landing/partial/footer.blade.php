@@ -103,6 +103,7 @@
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 30px;
         margin-bottom: 30px;
+        /* text-align: left; default */
     }
 
     .footer-section h3 {
@@ -112,6 +113,7 @@
         border-bottom: 2px solid rgba(255, 255, 255, 0.3);
         padding-bottom: 8px;
         font-weight: 600;
+        text-align: left;
     }
 
     .contact-item {
@@ -119,6 +121,7 @@
         align-items: center;
         margin-bottom: 12px;
         transition: all 0.3s ease;
+        text-align: left;
     }
 
     .contact-item:hover {
@@ -136,6 +139,7 @@
         color: #4ade80;
         /* Green accent color for icons */
         transition: all 0.3s ease;
+        flex-shrink: 0;
     }
 
     .contact-item:hover i {
@@ -145,9 +149,12 @@
         /* Slight scale for emphasis */
     }
 
-    .contact-item span {
+    .contact-item span,
+    .contact-item a span {
         font-size: 0.95em;
         line-height: 1.4;
+        text-align: left;
+        display: block;
     }
 
     .service-hours {
@@ -163,6 +170,7 @@
         display: flex;
         align-items: flex-start;
         margin-bottom: 10px;
+        text-align: left;
     }
 
     .service-item i {
@@ -172,6 +180,7 @@
         /* Green accent for clock icon */
         margin-top: 2px;
         transition: all 0.3s ease;
+        flex-shrink: 0;
     }
 
     .service-item:hover i {
@@ -183,6 +192,7 @@
         margin: 0;
         font-size: 0.95em;
         line-height: 1.4;
+        text-align: left;
     }
 
     .text-red {
@@ -206,6 +216,7 @@
         transition: all 0.3s ease;
         padding: 8px 0;
         border-bottom: 1px solid transparent;
+        text-align: left;
     }
 
     .footer-links a i {
@@ -216,6 +227,7 @@
         color: #4ade80;
         /* Green accent for link icons */
         transition: all 0.3s ease;
+        flex-shrink: 0;
     }
 
     .footer-links a:hover {
@@ -284,13 +296,22 @@
         .footer-content {
             grid-template-columns: 1fr;
             gap: 20px;
-            text-align: center;
+            /* Hapus text-align: center agar teks tetap rata kiri */
         }
 
+        /* Untuk menjaga ikon/link tetap center secara horizontal */
         .contact-item,
         .footer-links a,
         .service-item {
             justify-content: center;
+        }
+
+        /* Tapi teks di dalam tetap rata kiri dan lebar penuh */
+        .contact-item span,
+        .service-item p,
+        .footer-links a {
+            text-align: left;
+            width: 100%;
         }
 
         .footer-links a i {
