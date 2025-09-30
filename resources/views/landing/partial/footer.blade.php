@@ -17,7 +17,7 @@
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
                     <span>desa@sejahteramakmur.go.id</span>
-                </div>
+                </div zh>
                 <div class="contact-item">
                     <i class="fas fa-globe"></i>
                     <span>www.sejahteramakmur-desa.go.id</span>
@@ -30,16 +30,60 @@
                     <div class="service-item">
                         <i class="fas fa-clock"></i>
                         <div>
-                            @foreach ($operationalHours as $hour)
-                            <p class="{{ $hour->is_closed ? 'text-white' : '' }}">
-                                {{ $hour->day }}:
-                                @if ($hour->is_closed)
-                                Tutup
-                                @else
-                                {{ \Carbon\Carbon::parse($hour->open_time)->format('H:i') }} -
-                                {{ \Carbon\Carbon::parse($hour->close_time)->format('H:i') }} WIB
-                                @endif
-                            </p>
+                            @php
+                            $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                            $closedDays = [];
+                            $openHours = [];
+                            foreach ($operationalHours as $hour) {
+                            if ($hour->is_closed) {
+                            $closedDays[] = $hour->day;
+                            } else {
+                            $openHours[$hour->day] = [
+                            'open' => \Carbon\Carbon::parse($hour->open_time)->format('H:i'),
+                            'close' => \Carbon\Carbon::parse($hour->close_time)->format('H:i')
+                            ];
+                            }
+                            }
+                            // Combine consecutive closed days (e.g., Sabtu and Minggu)
+                            $closedRange = [];
+                            $start = null;
+                            $prev = null;
+                            foreach ($days as $index => $day) {
+                            if (in_array($day, $closedDays)) {
+                            if ($start === null) {
+                            $start = $day;
+                            }
+                            $prev = $day;
+                            } else {
+                            if ($start !== null) {
+                            if ($start === $prev) {
+                            $closedRange[] = $start . ': Tutup';
+                            } else {
+                            $closedRange[] = $start . ' - ' . $prev . ': Tutup';
+                            }
+                            $start = null;
+                            $prev = null;
+                            }
+                            }
+                            }
+                            // Handle case where closed days extend to the last day
+                            if ($start !== null) {
+                            if ($start === $prev) {
+                            $closedRange[] = $start . ': Tutup';
+                            } else {
+                            $closedRange[] = $start . ' - ' . $prev . ': Tutup';
+                            }
+                            }
+                            @endphp
+                            @foreach ($days as $day)
+                            @if (array_key_exists($day, $openHours))
+                            <p>{{ $day }}: {{ $openHours[$day]['open'] }} - {{ $openHours[$day]['close'] }} WIB</p>
+                            @elseif (in_array($day, $closedDays) && !collect($closedRange)->first(fn($range) => strpos($range, $day) !== false))
+                            <!-- Skip individual closed days already included in a range -->
+                            @endif
+                            @endforeach
+                            @foreach ($closedRange as $range)
+                            <p style="color: white; font-weight: bold;">{{ $range }}</p>
                             @endforeach
                         </div>
                     </div>
@@ -84,12 +128,10 @@
     /* Improved Footer Styles (Adjusted for Green Theme #16a34a) */
     .footer {
         background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
-        /* Green gradient background matching #16a34a */
         color: #ffffff;
         padding: 40px 0 20px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         margin-top: auto;
-        /* Ensures footer sticks to bottom in flex layouts */
     }
 
     .container {
@@ -103,7 +145,6 @@
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 30px;
         margin-bottom: 30px;
-        /* text-align: left; default */
     }
 
     .footer-section h3 {
@@ -126,9 +167,7 @@
 
     .contact-item:hover {
         color: #d1fae5;
-        /* Light green on hover */
         transform: translateX(5px);
-        /* Subtle slide on hover for contact items */
     }
 
     .contact-item i {
@@ -137,16 +176,13 @@
         width: 20px;
         text-align: center;
         color: #4ade80;
-        /* Green accent color for icons */
         transition: all 0.3s ease;
         flex-shrink: 0;
     }
 
     .contact-item:hover i {
         color: #ffffff;
-        /* Icon brightens on hover */
         transform: scale(1.1);
-        /* Slight scale for emphasis */
     }
 
     .contact-item span,
@@ -159,11 +195,9 @@
 
     .service-hours {
         background: rgba(255, 255, 255, 0.1);
-        /* Subtle backdrop */
         padding: 15px;
         border-radius: 8px;
         backdrop-filter: blur(10px);
-        /* Modern blur effect */
     }
 
     .service-item {
@@ -177,7 +211,6 @@
         font-size: 1.1em;
         margin-right: 12px;
         color: #4ade80;
-        /* Green accent for clock icon */
         margin-top: 2px;
         transition: all 0.3s ease;
         flex-shrink: 0;
@@ -185,7 +218,6 @@
 
     .service-item:hover i {
         transform: rotate(15deg);
-        /* Fun rotation on hover for clock icon */
     }
 
     .service-item p {
@@ -197,7 +229,6 @@
 
     .text-red {
         color: #f87171 !important;
-        /* Red for closed days (unchanged for contrast) */
     }
 
     .footer-links {
@@ -210,7 +241,6 @@
         display: flex;
         align-items: center;
         color: #e0f2fe;
-        /* Light green-tinted white for links */
         text-decoration: none;
         font-size: 0.95em;
         transition: all 0.3s ease;
@@ -225,7 +255,6 @@
         width: 16px;
         text-align: center;
         color: #4ade80;
-        /* Green accent for link icons */
         transition: all 0.3s ease;
         flex-shrink: 0;
     }
@@ -233,15 +262,12 @@
     .footer-links a:hover {
         color: #ffffff;
         border-bottom-color: #4ade80;
-        /* Green border on hover */
         padding-left: 5px;
-        /* Subtle slide effect */
     }
 
     .footer-links a:hover i {
         color: #ffffff;
         transform: scale(1.1);
-        /* Icon scale on hover */
     }
 
     .footer-bottom {
@@ -272,23 +298,19 @@
 
     .footer-brand img {
         border-radius: 50%;
-        /* Circular logo */
         border: 2px solid rgba(255, 255, 255, 0.3);
         transition: all 0.3s ease;
     }
 
     .footer-brand:hover img {
         transform: scale(1.05);
-        /* Slight zoom on hover for logo */
         box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
-        /* Green glow effect */
     }
 
     .footer-brand span {
         font-size: 0.95em;
         font-weight: 500;
         color: #d1fae5;
-        /* Light green for slogan */
     }
 
     /* Responsiveness */
@@ -296,17 +318,14 @@
         .footer-content {
             grid-template-columns: 1fr;
             gap: 20px;
-            /* Hapus text-align: center agar teks tetap rata kiri */
         }
 
-        /* Untuk menjaga ikon/link tetap center secara horizontal */
         .contact-item,
         .footer-links a,
         .service-item {
             justify-content: center;
         }
 
-        /* Tapi teks di dalam tetap rata kiri dan lebar penuh */
         .contact-item span,
         .service-item p,
         .footer-links a {
@@ -341,7 +360,6 @@
         .service-item i,
         .footer-links a i {
             font-size: 1em;
-            /* Slightly smaller icons on mobile */
         }
     }
 </style>
