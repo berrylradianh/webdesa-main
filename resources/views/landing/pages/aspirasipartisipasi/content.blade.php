@@ -252,8 +252,61 @@
 
                         <div>
                             <p style="margin-bottom: 8px;"><strong>Jam Layanan:</strong></p>
-                            <p style="margin-bottom: 5px;">Senin - Jumat: 08.00 - 15.00</p>
-                            <p style="margin: 0;">Sabtu: 08.00 - 12.00</p>
+                            @php
+                            $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                            $closedDays = [];
+                            $openHours = [];
+                            foreach ($operationalHours as $hour) {
+                            if ($hour->is_closed) {
+                            $closedDays[] = $hour->day;
+                            } else {
+                            $openHours[$hour->day] = [
+                            'open' => \Carbon\Carbon::parse($hour->open_time)->format('H:i'),
+                            'close' => \Carbon\Carbon::parse($hour->close_time)->format('H:i')
+                            ];
+                            }
+                            }
+                            // Combine consecutive closed days (e.g., Sabtu and Minggu)
+                            $closedRange = [];
+                            $start = null;
+                            $prev = null;
+                            foreach ($days as $index => $day) {
+                            if (in_array($day, $closedDays)) {
+                            if ($start === null) {
+                            $start = $day;
+                            }
+                            $prev = $day;
+                            } else {
+                            if ($start !== null) {
+                            if ($start === $prev) {
+                            $closedRange[] = $start . ': Tutup';
+                            } else {
+                            $closedRange[] = $start . ' - ' . $prev . ': Tutup';
+                            }
+                            $start = null;
+                            $prev = null;
+                            }
+                            }
+                            }
+                            // Handle case where closed days extend to the last day
+                            if ($start !== null) {
+                            if ($start === $prev) {
+                            $closedRange[] = $start . ': Tutup';
+                            } else {
+                            $closedRange[] = $start . ' - ' . $prev . ': Tutup';
+                            }
+                            }
+                            @endphp
+                            @foreach ($days as $day)
+                            @if (array_key_exists($day, $openHours))
+                            <p style="text-align: justify; margin-left: 80px;">{{ $day }}: {{ $openHours[$day]['open'] }} - {{ $openHours[$day]['close'] }} WIB</p>
+                            @elseif (in_array($day, $closedDays) && !collect($closedRange)->first(fn($range) => strpos($range, $day) !== false))
+                            <!-- Skip individual closed days already included in a range -->
+                            @endif
+                            @endforeach
+                            @foreach ($closedRange as $range)
+                            <p style="color: black; font-weight: bold;text-align: justify; margin-left: 80px;">{{ $range }}</p>
+                            @endforeach
                         </div>
                     </div>
                 </div>
