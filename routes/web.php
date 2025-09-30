@@ -68,9 +68,6 @@ Route::get('/aspirasi-partisipasi', [AspirasiPartisipasiController::class, 'inde
 Route::post('/layanan-online/submit', [LayananOnlineController::class, 'submit'])->name('layanan-online.submit');
 Route::get('/layanan-online/download/{id}', [LayananOnlineController::class, 'download'])->name('layanan-online.download');
 Route::post('/layanan-online/check-status', [LayananOnlineController::class, 'checkStatus'])->name('layanan-online.check-status');
-// Route::get('articles/{slug}', [ArticleController::class, 'show'])->name('article.show');
-// Route::get('announcements/{id}', [AnnouncementController::class, 'show'])->name('announcement.show');
-Route::get('agendas/{id}', [AgendaController::class, 'show'])->name('agenda.show');
 Route::post('/aspirasi-partisipasi', [AspirasiPartisipasiController::class, 'store'])->name('aspirasi.store');
 Route::post('/aspirasi-partisipasi/vote/{pollId}', [AspirasiPartisipasiController::class, 'vote'])->name('aspirasi.vote');
 
