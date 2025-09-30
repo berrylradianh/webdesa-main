@@ -44,6 +44,7 @@ use App\Http\Controllers\landing\BumdController as LandingBumdController;
 use App\Http\Controllers\landing\InformasiDesaController;
 use App\Http\Controllers\landing\LandingController;
 use App\Http\Controllers\landing\LayananOnlineController;
+use App\Http\Controllers\landing\PetaPotensiController;
 use App\Http\Controllers\landing\TentangDesaController;
 
 /*
@@ -65,6 +66,7 @@ Route::get('/layanan-online', [LayananOnlineController::class, 'index'])->name('
 Route::get('/apbd', [ApbdLandingController::class, 'index'])->name('landing.apbd');
 Route::get('/informasi-desa', [InformasiDesaController::class, 'index'])->name('landing.informasidesa');
 Route::get('/aspirasi-partisipasi', [AspirasiPartisipasiController::class, 'index'])->name('landing.partisipasi');
+Route::get('/peta-potensi', [PetaPotensiController::class, 'index'])->name('landing.petapotensi');
 Route::post('/layanan-online/submit', [LayananOnlineController::class, 'submit'])->name('layanan-online.submit');
 Route::get('/layanan-online/download/{id}', [LayananOnlineController::class, 'download'])->name('layanan-online.download');
 Route::post('/layanan-online/check-status', [LayananOnlineController::class, 'checkStatus'])->name('layanan-online.check-status');
