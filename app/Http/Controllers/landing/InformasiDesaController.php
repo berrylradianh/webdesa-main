@@ -32,16 +32,17 @@ class InformasiDesaController extends Controller
             $query->where('status', 'published');
         }])->get(['id', 'name', 'announcements_count']);
 
-        // Fetch the latest published announcement for the main content
-        $announcement = Announcement::where('status', 'published')
+        // Fetch latest published announcements (misal 10)
+        $announcements = Announcement::where('status', 'published')
             ->with('category')
             ->orderBy('tanggal', 'desc')
-            ->first(['id', 'judul', 'isi', 'tanggal', 'category_id']);
+            ->get(['id', 'judul', 'isi', 'tanggal', 'category_id']);
 
-        // Fetch the latest published agenda for the main content
-        $agenda = Agenda::where('status', 'published')
+        // Fetch latest published agendas (misal 10)
+        $agendas = Agenda::where('status', 'published')
             ->orderBy('tanggal_mulai', 'desc')
-            ->first(['id', 'judul', 'deskripsi', 'tanggal_mulai']);
+            ->get(['id', 'judul', 'deskripsi', 'tanggal_mulai']);
+
 
         // Fetch active BUMDs for the sidebar
         $bumds = Bumd::where('status', 'active')
@@ -55,8 +56,8 @@ class InformasiDesaController extends Controller
             'articles',
             'latestArticles',
             'categories',
-            'announcement',
-            'agenda',
+            'announcements',
+            'agendas',
             'bumds',
             'operationalHours'
         ));

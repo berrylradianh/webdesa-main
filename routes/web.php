@@ -35,8 +35,12 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\GroupBudgetTypeController;
+use App\Http\Controllers\landing\AgendaController as LandingAgendaController;
+use App\Http\Controllers\landing\AnnouncementController;
 use App\Http\Controllers\landing\ApbdLandingController;
+use App\Http\Controllers\landing\ArticleController;
 use App\Http\Controllers\landing\AspirasiPartisipasiController;
+use App\Http\Controllers\landing\BumdController as LandingBumdController;
 use App\Http\Controllers\landing\InformasiDesaController;
 use App\Http\Controllers\landing\LandingController;
 use App\Http\Controllers\landing\LayananOnlineController;
@@ -69,6 +73,12 @@ Route::post('/layanan-online/check-status', [LayananOnlineController::class, 'ch
 Route::get('agendas/{id}', [AgendaController::class, 'show'])->name('agenda.show');
 Route::post('/aspirasi-partisipasi', [AspirasiPartisipasiController::class, 'store'])->name('aspirasi.store');
 Route::post('/aspirasi-partisipasi/vote/{pollId}', [AspirasiPartisipasiController::class, 'vote'])->name('aspirasi.vote');
+
+
+Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show');
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcement.show');
+Route::get('/agenda/{id}', [LandingAgendaController::class, 'show'])->name('agenda.show');
+Route::get('/bumd/{id}', [LandingBumdController::class, 'show'])->name('bumd.show');
 
 // ----------------- AUTH -----------------
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
@@ -120,7 +130,7 @@ Route::middleware(['checkRole:admin'])->group(function () {
     Route::put('/admin/kelola/roles/{id}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('/admin/kelola/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
-     // ----------------- Pengumuman Desa -----------------
+    // ----------------- Pengumuman Desa -----------------
     Route::get('/admin/announcement', [\App\Http\Controllers\AnnouncementController::class, 'index'])
         ->name('admin.announcement.index');
     Route::get('/admin/announcement/create', [\App\Http\Controllers\AnnouncementController::class, 'create'])
