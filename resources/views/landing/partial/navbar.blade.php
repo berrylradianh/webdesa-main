@@ -15,6 +15,7 @@
                     <a href="{{ route('landing.layanan') }}" class="nav-link {{ request()->routeIs('landing.layanan') ? 'active' : '' }}">Layanan Online</a>
                     <a href="{{ route('landing.informasidesa') }}" class="nav-link {{ request()->routeIs('landing.informasidesa') ? 'active' : '' }}">Informasi Desa</a>
                     <a href="{{ route('landing.partisipasi') }}" class="nav-link {{ request()->routeIs('landing.partisipasi') ? 'active' : '' }}">Aspirasi & Partisipasi</a>
+                    <a href="{{ route('landing.apbd') }}" class="nav-link {{ request()->routeIs('landing.apbd') ? 'active' : '' }}">Laporan APBD</a>
                 </div>
                 <a href="{{ route('login') }}" class="login-btn {{ request()->routeIs('login') ? 'active' : '' }}">Login</a>
             </nav>

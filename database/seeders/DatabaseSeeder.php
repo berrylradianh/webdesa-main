@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,
             VillageOfficialProfilesSeeder::class,
             BumdsSeeder::class,
+            BudgetTypeSeeder::class,
+            GroupBudgetTypeSeeder::class,
+            DetailBudgetTypeSeeder::class
         ]);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminAspirasiController;
 use App\Http\Controllers\DataKependudukanController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\ApbdController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MutasiKependudukanController;
@@ -27,10 +28,14 @@ use App\Http\Controllers\VillageProfileController;
 use App\Http\Controllers\VisiMisiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\BudgetTypeController;
 use App\Http\Controllers\BumdController;
+use App\Http\Controllers\DetailBudgetTypeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\GroupBudgetTypeController;
+use App\Http\Controllers\landing\ApbdLandingController;
 use App\Http\Controllers\landing\AspirasiPartisipasiController;
 use App\Http\Controllers\landing\InformasiDesaController;
 use App\Http\Controllers\landing\LandingController;
@@ -53,6 +58,7 @@ Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::post('/search-nik', [LandingController::class, 'searchNik'])->name('landing.searchNik');
 Route::get('/tentang-desa', [TentangDesaController::class, 'index'])->name('landing.tentang_desa');
 Route::get('/layanan-online', [LayananOnlineController::class, 'index'])->name('landing.layanan');
+Route::get('/apbd', [ApbdLandingController::class, 'index'])->name('landing.apbd');
 Route::get('/informasi-desa', [InformasiDesaController::class, 'index'])->name('landing.informasidesa');
 Route::get('/aspirasi-partisipasi', [AspirasiPartisipasiController::class, 'index'])->name('landing.partisipasi');
 Route::post('/layanan-online/submit', [LayananOnlineController::class, 'submit'])->name('layanan-online.submit');
@@ -460,6 +466,18 @@ Route::middleware(['checkRole:perangkatdesa'])->group(function () {
     Route::delete('/perangkat/visi-misi/{id}', [VisiMisiController::class, 'destroy'])
         ->name('perangkat.visi-misi.destroy');
 
+    // Jenis Anggaran
+    Route::resource('budget_types', BudgetTypeController::class);
+
+    // Kelompok Jenis Anggaran
+    Route::resource('group_budget_types', GroupBudgetTypeController::class);
+
+    // Detail Jenis Anggaran
+    Route::resource('detail_budget_types', DetailBudgetTypeController::class);
+
+    // Kelola APBD
+    Route::resource('apbds', ApbdController::class);
+    Route::get('apbds/detail-budget-types/{budgetTypeId}', [ApbdController::class, 'getDetailBudgetTypes']);
 });
 
 // ----------------- WARGA -----------------

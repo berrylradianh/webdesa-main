@@ -158,6 +158,35 @@
             </a>
         </div>
 
+        <!-- APBD -->
+        <div class="mt-5 border-t border-white/30 pt-2">
+            <p class="px-4 text-xs uppercase tracking-wide text-white/70 mb-3">APBD</p>
+            <a href="{{ route('budget_types.index') }}"
+                class="flex items-center px-4 py-2 rounded-lg transition {{ request()->routeIs('budget_types*') ? 'bg-white text-[#3EB489]' : 'hover:bg-white/10' }}"
+                aria-label="Pengumuman Desa">
+                <i data-feather="dollar-sign" class="mr-2 w-5 h-5"></i>
+                <span>Jenis Anggaran</span>
+            </a>
+            <a href="{{ route('group_budget_types.index') }}"
+                class="flex items-center px-4 py-2 rounded-lg transition {{ request()->routeIs('group_budget_types*') ? 'bg-white text-[#3EB489]' : 'hover:bg-white/10' }}"
+                aria-label="Artikel">
+                <i data-feather="folder" class="mr-2 w-5 h-5"></i>
+                <span>Kelompok Anggaran</span>
+            </a>
+            <a href="{{ route('detail_budget_types.index') }}"
+                class="flex items-center px-4 py-2 rounded-lg transition {{ request()->routeIs('detail_budget_types*') ? 'bg-white text-[#3EB489]' : 'hover:bg-white/10' }}"
+                aria-label="Artikel">
+                <i data-feather="list" class="mr-2 w-5 h-5"></i>
+                <span>Detail Jenis Anggaran</span>
+            </a>
+            <a href="{{ route('apbds.index') }}"
+                class="flex items-center px-4 py-2 rounded-lg transition {{ request()->routeIs('apbds*') ? 'bg-white text-[#3EB489]' : 'hover:bg-white/10' }}"
+                aria-label="Agenda Kegiatan">
+                <i data-feather="briefcase" class="mr-2 w-5 h-5"></i>
+                <span>Kelola APBD</span>
+            </a>
+        </div>
+
         <!-- Publikasi Konten -->
         <div class="mt-5 border-t border-white/30 pt-2">
             <p class="px-4 text-xs uppercase tracking-wide text-white/70 mb-3">Publikasi Konten</p>
