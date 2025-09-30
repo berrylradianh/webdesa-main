@@ -31,7 +31,7 @@
                         <i class="fas fa-clock"></i>
                         <div>
                             @foreach ($operationalHours as $hour)
-                            <p class="{{ $hour->is_closed ? 'text-red' : '' }}">
+                            <p class="{{ $hour->is_closed ? 'text-white' : '' }}">
                                 {{ $hour->day }}:
                                 @if ($hour->is_closed)
                                 Tutup
