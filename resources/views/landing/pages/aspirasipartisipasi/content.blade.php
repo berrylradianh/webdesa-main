@@ -248,7 +248,7 @@
                     <h3 style="margin-bottom: 20px;">Kontak Langsung</h3>
                     <div style="font-size: 14px; color: #666;">
                         <p style="margin-bottom: 8px;"><strong>Hotline Pengaduan:</strong></p>
-                        <p style="margin-bottom: 20px;">📱 WhatsApp: <a href="https://wa.me/6281234567890" target="_blank" style="color: inherit; text-decoration: none;">+6281234567890</a></p>
+                        <p style="margin-bottom: 20px;">📱 WhatsApp: <a href="https://wa.me/6282338756354" target="_blank" style="color: inherit; text-decoration: none;">+6281234567890</a></p>
 
                         <div>
                             <p style="margin-bottom: 8px;"><strong>Jam Layanan:</strong></p>

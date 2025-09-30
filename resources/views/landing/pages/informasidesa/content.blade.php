@@ -17,7 +17,7 @@
                             <p style="color: #666; line-height: 1.5; margin-bottom: 15px; text-align: justify;">
                                 {{ Str::limit(strip_tags($announcement->isi), 100) }}
                             </p>
-                            <a href="{{ route('announcement.show', $announcement->id) }}" style="background: #16a34a; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; display: inline-block;">Baca Selengkapnya</a>
+                            <a href="{{ route('announcement.show', $announcement->id) }}" style="color: #16a34a; text-decoration: none; font-weight: 600; display: block; text-align: right;">Baca Selengkapnya &rarr;</a>
                         </div>
                         @endforeach
                     </div>
@@ -38,7 +38,7 @@
                             <p style="color: #666; line-height: 1.5; margin-bottom: 15px; text-align: justify;">
                                 {{ Str::limit(strip_tags($agenda->deskripsi), 100) }}
                             </p>
-                            <a href="{{ route('agenda.show', $agenda->id) }}" style="background: #16a34a; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; display: inline-block;">Baca Selengkapnya</a>
+                            <a href="{{ route('agenda.show', $agenda->id) }}" style="color: #16a34a; text-decoration: none; font-weight: 600; display: block; text-align: right;">Baca Selengkapnya &rarr;</a>
                         </div>
                         @endforeach
                     </div>
