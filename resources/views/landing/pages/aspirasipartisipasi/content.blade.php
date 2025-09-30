@@ -85,8 +85,7 @@
 
                     @foreach($polls as $poll)
                     <div style="margin-bottom: 30px;">
-                        <h4 style="margin-bottom: 10px; color: #333;">{{ $poll['title'] }}</h4>
-                        <p style="color: #666; margin-bottom: 20px;">{{ $poll['question'] }}</p>
+                        <h4 style="margin-bottom: 10px; color: #333;">{{ $poll['question'] }}</h4>
 
                         <div id="poll-{{ $poll['id'] }}" style="display: flex; flex-direction: column; gap: 15px;">
                             @php
