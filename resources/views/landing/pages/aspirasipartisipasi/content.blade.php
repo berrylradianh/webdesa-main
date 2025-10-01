@@ -299,13 +299,13 @@
                             @endphp
                             @foreach ($days as $day)
                             @if (array_key_exists($day, $openHours))
-                            <p style="text-align: justify; margin-left: 80px;">{{ $day }}: {{ $openHours[$day]['open'] }} - {{ $openHours[$day]['close'] }} WIB</p>
+                            <p style="text-align: center;">{{ $day }}: {{ $openHours[$day]['open'] }} - {{ $openHours[$day]['close'] }} WIB</p>
                             @elseif (in_array($day, $closedDays) && !collect($closedRange)->first(fn($range) => strpos($range, $day) !== false))
                             <!-- Skip individual closed days already included in a range -->
                             @endif
                             @endforeach
                             @foreach ($closedRange as $range)
-                            <p style="color: black; font-weight: bold;text-align: justify; margin-left: 80px;">{{ $range }}</p>
+                            <p style="color: red; font-weight: bold;text-align: center;">{{ $range }}</p>
                             @endforeach
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 @section('page-title', 'Artikel')
 
 @section('landing_content')
-<div class="container" style="padding: 60px 0;">
+<div class="container" style="padding: 60px 0; text-align: justify;">
     <h1 style="color: #16a34a;">{{ $article->judul }}</h1>
     <p style="color: #666; font-size: 14px;">{{ \Carbon\Carbon::parse($article->created_at)->translatedFormat('d F Y') }}</p>
     @if($article->gambar)

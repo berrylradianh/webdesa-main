@@ -3,7 +3,7 @@
 @section('page-title', 'Agenda')
 
 @section('landing_content')
-<div class="container" style="padding: 60px 0;">
+<div class="container" style="padding: 60px 0; text-align: justify;">
     <h1 style="color: #16a34a;">{{ $agenda->judul }}</h1>
     <p style="color: #666; font-size: 14px;">
         Tanggal Mulai: {{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->translatedFormat('d F Y') }}

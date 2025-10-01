@@ -128,17 +128,67 @@
                 <!-- Service Info -->
                 <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
                     <h3 style="margin-bottom: 15px;">Informasi Layanan</h3>
-                    <div style="color: #666; font-size: 14px;">
-                        <p><strong>Jam Operasional:</strong></p>
-                        <p>Senin - Jumat: 08.00 - 15.00</p>
-                        <p>Sabtu: 08.00 - 12.00</p>
-                        <p style="color: #dc2626;">Minggu: Tutup</p>
-                        <div style="margin-top: 20px;">
-                            <p><strong>Kontak:</strong></p>
-                            <p>Telepon: (0274) 123456</p>
-                            <a href="https://wa.me/6282338756354" target="_blank" style="color: inherit; text-decoration: none;">
-                                <p>WhatsApp: +6282338756354</p>
-                            </a>
+                    <div style="font-size: 14px; color: #666;">
+                        <p style="margin-bottom: 8px;"><strong>Hotline Pengaduan:</strong></p>
+                        <p style="margin-bottom: 20px;">📱 WhatsApp: <a href="https://wa.me/6282338756354" target="_blank" style="color: inherit; text-decoration: none;">+6281234567890</a></p>
+
+                        <div>
+                            <p style="margin-bottom: 8px;"><strong>Jam Layanan:</strong></p>
+                            @php
+                            $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                            $closedDays = [];
+                            $openHours = [];
+                            foreach ($operationalHours as $hour) {
+                            if ($hour->is_closed) {
+                            $closedDays[] = $hour->day;
+                            } else {
+                            $openHours[$hour->day] = [
+                            'open' => \Carbon\Carbon::parse($hour->open_time)->format('H:i'),
+                            'close' => \Carbon\Carbon::parse($hour->close_time)->format('H:i')
+                            ];
+                            }
+                            }
+                            // Combine consecutive closed days (e.g., Sabtu and Minggu)
+                            $closedRange = [];
+                            $start = null;
+                            $prev = null;
+                            foreach ($days as $index => $day) {
+                            if (in_array($day, $closedDays)) {
+                            if ($start === null) {
+                            $start = $day;
+                            }
+                            $prev = $day;
+                            } else {
+                            if ($start !== null) {
+                            if ($start === $prev) {
+                            $closedRange[] = $start . ': Tutup';
+                            } else {
+                            $closedRange[] = $start . ' - ' . $prev . ': Tutup';
+                            }
+                            $start = null;
+                            $prev = null;
+                            }
+                            }
+                            }
+                            // Handle case where closed days extend to the last day
+                            if ($start !== null) {
+                            if ($start === $prev) {
+                            $closedRange[] = $start . ': Tutup';
+                            } else {
+                            $closedRange[] = $start . ' - ' . $prev . ': Tutup';
+                            }
+                            }
+                            @endphp
+                            @foreach ($days as $day)
+                            @if (array_key_exists($day, $openHours))
+                            <p style="text-align: center;">{{ $day }}: {{ $openHours[$day]['open'] }} - {{ $openHours[$day]['close'] }} WIB</p>
+                            @elseif (in_array($day, $closedDays) && !collect($closedRange)->first(fn($range) => strpos($range, $day) !== false))
+                            <!-- Skip individual closed days already included in a range -->
+                            @endif
+                            @endforeach
+                            @foreach ($closedRange as $range)
+                            <p style="color: red; font-weight: bold;text-align: center;">{{ $range }}</p>
+                            @endforeach
                         </div>
                     </div>
                 </div>

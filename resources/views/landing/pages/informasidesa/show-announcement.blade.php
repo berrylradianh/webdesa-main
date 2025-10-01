@@ -3,7 +3,7 @@
 @section('page-title', 'Pengumuman')
 
 @section('landing_content')
-<div class="container" style="padding: 60px 0;">
+<div class="container" style="padding: 60px 0; text-align: justify;">
     <h1 style="color: #16a34a;">{{ $announcement->judul }}</h1>
     <p style="color: #666; font-size: 14px;">
         Kategori: {{ $announcement->category->name }} | Tanggal: {{ \Carbon\Carbon::parse($announcement->tanggal)->translatedFormat('d F Y') }}
