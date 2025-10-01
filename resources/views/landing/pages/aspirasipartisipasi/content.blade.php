@@ -221,7 +221,7 @@
                 <!-- Guidelines -->
                 <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 30px;">
                     <h3 style="margin-bottom: 20px;">Panduan Pengaduan</h3>
-                    <div style="font-size: 14px; color: #666;">
+                    <div style="font-size: 14px; color: #666; text-align: justify;">
                         <div style="margin-bottom: 20px;">
                             <h4 style="font-weight: 600; margin-bottom: 8px;">Tips Pengaduan Efektif:</h4>
                             <ul style="list-style: disc; list-style-position: inside; margin: 0; padding: 0;">
